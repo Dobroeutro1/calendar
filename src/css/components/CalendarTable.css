@@ -1,0 +1,48 @@
+.calendar__table {
+    border-collapse: collapse;
+}
+
+.cell {
+    padding: 8px;
+    border: 1px solid #292929;
+    vertical-align: top;
+}
+
+.cell:hover {
+    background-color: #F4F4F4;
+}
+
+.cell:active {
+    background-color: #C2E4FE;
+    box-shadow: 0 0 10px 2px #0271C7;
+}
+
+.cell_filled {
+    background-color: #C2E4FE;
+}
+
+.cell_filled:hover {
+    background-color: #27A1FF;
+}
+
+.cell__title {
+    margin: 0;
+    font-size: 14px;
+    color: #6B6B6B;
+}
+
+.cell__content {
+
+}
+
+.content__title {
+    margin: 0;
+    font-size: 14px;
+    color: #292929;
+}
+
+.content__text {
+    margin: 0;
+    font-size: 14px;
+    color: #6B6B6B;
+}

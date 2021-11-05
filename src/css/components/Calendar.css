@@ -1,0 +1,11 @@
+@import url("./CalendarControl.css");
+@import url("./CalendarTable.css");
+
+
+.calendar {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+
+
