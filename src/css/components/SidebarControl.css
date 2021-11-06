@@ -1,0 +1,34 @@
+@import url("./SidebarEventModal.css");
+
+.sidebar__buttons {
+    position: relative;
+}
+
+.sidebar__button {
+    margin-right: 10px;
+    padding: 6px 12px;
+    background: #0271C7;
+    border: none;
+    border-radius: 2px;
+    color: #FFFFFF;
+    font-size: 12px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.sidebar__button:last-child {
+    margin-right: 0;
+}
+
+.sidebar__button:hover {
+    background-color: #27A1FF;
+}
+
+.sidebar__button:active {
+    background-color: #C2E4FE;
+}
+
+.sidebar__button:disabled {
+    background-color: #CFCFCF;
+}

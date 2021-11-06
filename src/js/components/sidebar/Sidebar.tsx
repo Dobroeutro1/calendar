@@ -1,11 +1,24 @@
 import React from 'react'
 import { SidebarProps, SidebarState } from './interfaces'
-import { actionsSidebar } from '../../actions'
+import { SidebarControl } from '../sidebar-control'
+import { SidebarSearch } from '../sidebar-search'
 
 export class Sidebar extends React.PureComponent<SidebarProps, SidebarState> {
   constructor(props: SidebarProps) {
     super(props)
-    this.state = { value: '' }
+    this.state = { value: '', eventList: [] }
+  }
+
+  componentDidMount(): void {
+    if (this.props.eventList) {
+      this.setState({ eventList: this.props.eventList })
+    }
+  }
+
+  componentDidUpdate(prevProps: Readonly<SidebarProps>): void {
+    if (prevProps.eventList !== this.props.eventList) {
+      this.setState({ eventList: this.props.eventList })
+    }
   }
 
   onClearValue = () => {
@@ -13,35 +26,41 @@ export class Sidebar extends React.PureComponent<SidebarProps, SidebarState> {
   }
 
   onSetValue = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ value: event.currentTarget.value })
+    this.setState({ value: event.currentTarget.value }, this.onFilterEventList)
+  }
+
+  onFilterEventList = (): void => {
+    const filteredEventList = this.props.eventList.filter((event) => {
+      if (
+        event.date.includes(this.state.value)
+        || event.title.includes(this.state.value)
+        || event.members.includes(this.state.value)
+        || event.description.includes(this.state.value)
+      ) {
+        return event
+      }
+    }).sort((first, second) => {
+      const firstDate = new Date(first.date),
+        secondDate = new Date(second.date)
+
+      return secondDate.getTime() - firstDate.getTime()
+    })
+
+    this.setState({ eventList: filteredEventList })
   }
 
   render(): React.ReactNode {
     return (
       <div className="sidebar">
         <div className='sidebar__content'>
-          <div className='sidebar__buttons'>
-            <button className='sidebar__button'>Добавить</button>
-            <button className='sidebar__button'>Обновить</button>
-          </div>
-          <div className='sidebar__search'>
-            <button className='sidebar__button_search' />
-            <div className='search__control'>
-              <input
-                id='sidebar-search'
-                type='text'
-                placeholder='Введите событие'
-                className='sidebar__input'
-                onChange={this.onSetValue}
-                value={this.state.value}
-              />
-              <label
-                htmlFor='sidebar-search'
-                className={`sidebar__label ${this.state.value.length > 0 ? 'sidebar__label_visible' : ''}`}
-                onClick={this.onClearValue}
-              />
-            </div>
-          </div>
+          <SidebarControl dispatch={this.props.dispatch} />
+          <SidebarSearch
+            onSetValue={this.onSetValue}
+            onClearValue={this.onClearValue}
+            eventList={this.state.eventList}
+            value={this.state.value}
+            dispatch={this.props.dispatch}
+          />
         </div>
       </div>
     )

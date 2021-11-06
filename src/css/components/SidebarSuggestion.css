@@ -1,0 +1,61 @@
+.sidebar-suggestion {
+    max-height: 305px;
+    position: absolute;
+    top: 45px;
+    left: 40px;
+    display: none;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 4px;
+    filter: drop-shadow(0px 0px 7px rgba(0, 0, 0, 0.25));
+    z-index: 1;
+}
+
+.sidebar-suggestion_visible {
+    padding: 6px 4px;
+    display: flex;
+}
+
+.sidebar-suggestion::before {
+    width: 14px;
+    height: 24px;
+    content: '';
+    position: absolute;
+    top: -17px;
+    left: 23px;
+    transform: rotate(90deg);
+    background-image: url("../../media/decorate.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.sidebar-suggestion__event-list {
+    min-width: 190px;
+    overflow-y: auto;
+}
+
+.suggestion {
+    padding: 4px 9px;
+    cursor: pointer;
+}
+
+.suggestion:hover {
+    background-color: #27A1FF;
+}
+
+.suggestion:hover .suggestion__title, .suggestion:hover .suggestion__text {
+    color: #fff;
+}
+
+.suggestion__title {
+    margin: 0 0 6px;
+    font-size: 14px;
+    color: #292929;
+}
+
+.suggestion__text {
+    margin: 0;
+    font-size: 12px;
+    color: #292929;
+}

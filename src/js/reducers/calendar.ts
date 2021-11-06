@@ -1,75 +1,69 @@
 import { CalendarStorage } from '../components/calendar'
-import { IAction } from '../interfaces'
-import { actionsCalendar } from '../actions'
-import { getTodayMonthYear } from '../utils'
+import { IAction, Event, Day } from '../interfaces'
+import { actionsCalendar, actionsSidebar } from '../actions'
+import { getCalendarDays, getTodayMonthYear } from '../utils'
 
 const initialState: CalendarStorage = {
-  currentDate: getTodayMonthYear()
+  currentDate: getTodayMonthYear(),
+  days: getCalendarDays(getTodayMonthYear()),
 }
 
 function changeCurrentDate(state: CalendarStorage, date: string): CalendarStorage {
-  const parseDate = date.split('-'),
-    daysInMonth = new Date(parseInt(parseDate[0], 10), parseInt(parseDate[1], 10), 0).getDate(),
-    months = []
+  return { ...state, currentDate: date, days: getCalendarDays(date)}
+}
 
-  for (let i = 1; i <= daysInMonth; i++) {
-    const monthElement = new Date(parseInt(parseDate[0], 10), parseInt(parseDate[1], 10) - 1, i),
-      monthObj = {
-        date: `${monthElement.getFullYear()}-${monthElement.getMonth() + 1}-${monthElement.getDate()}`,
-        dayOfTheWeek: monthElement.getDay(),
-        event: {
-          title: '',
-          body: ''
-        }
-      }
-    months.push(monthObj)
-  }
-
-  if (months[0].dayOfTheWeek !== 1) {
-    const parseMonthDate = months[0].date.split('-'),
-      daysInPreviousMonth = new Date(parseInt(parseMonthDate[0], 10), parseInt(parseMonthDate[1], 10) - 1, 0).getDate()
-
-    for (let i = 0; i < months[0].dayOfTheWeek + 2; i++) {
-      const monthElement = new Date(parseInt(parseMonthDate[0], 10), parseInt(parseMonthDate[1], 10) - 2, daysInPreviousMonth - i),
-        monthObj = {
-          date: `${monthElement.getFullYear()}-${monthElement.getMonth() + 1}-${monthElement.getDate()}`,
-          dayOfTheWeek: monthElement.getDay(),
-          event: {
-            title: '',
-            body: ''
-          }
-        }
-      months.splice(0, 0, monthObj)
+function addEvent(state: CalendarStorage, event: Event): CalendarStorage {
+  const modifyDays = state.days.map((day) => {
+    if (day.date === event.date) {
+      return { ...day, event }
     }
-  }
+    return day
+  })
+  return { ...state, days: modifyDays }
+}
 
-  if (months.length < 35) {
-    console.log(`добавить в конец ${35 - months.length}`)
-    const parseMonthDate = months[0].date.split('-')
-
-    for (let i = 1; i <= 35 - months.length; i++) {
-      const monthElement = new Date(parseInt(parseMonthDate[0], 10), parseInt(parseMonthDate[1], 10) - 2, i),
-        monthObj = {
-        date: `${monthElement.getFullYear()}-${monthElement.getMonth() + 1}-${monthElement.getDate()}`,
-        dayOfTheWeek: monthElement.getDay(),
-        event: {
-          title: '',
-          body: ''
-        }
-      }
-      months.push(monthObj)
+function deleteEvent(state: CalendarStorage, date: string): CalendarStorage {
+  const modifyDays = state.days.map((day) => {
+    if (day.date === date) {
+      return { date: day.date, dayOfTheWeek: day.dayOfTheWeek, event: { date: date, members: '', description: '', title: '' } }
     }
-  }
+    return day
+  })
+  return { ...state, days: modifyDays }
+}
 
-  console.log('months', months)
+function changeEvent(state: CalendarStorage, event: Event): CalendarStorage {
+  const modifyDays = state.days.map((day) => {
+    if (day.date === event.date) {
+      return { ...day, event }
+    }
+    return day
+  })
+  return { ...state, days: modifyDays }
+}
 
-  return {...state, currentDate: date}
+function addFastEvent(state: CalendarStorage, newDay: Day): CalendarStorage {
+  const modifyDays = state.days.map((day) => {
+    if (day.date === newDay.date) {
+      return newDay
+    }
+    return day
+  })
+  return { ...state, days: modifyDays }
 }
 
 export function reducer(state = initialState, action: IAction): CalendarStorage {
   switch (action.type) {
     case actionsCalendar.CHANGE_CURRENT_DATE:
       return changeCurrentDate(state, action.payload as string)
+    case actionsCalendar.ADD_EVENT:
+      return addEvent(state, action.payload as Event)
+    case actionsCalendar.DELETE_EVENT:
+      return deleteEvent(state, action.payload as string)
+    case actionsCalendar.CHANGE_EVENT:
+      return changeEvent(state, action.payload as Event)
+    case actionsSidebar.ADD_FAST_EVENT:
+      return addFastEvent(state, action.payload as Day)
 
     default:
       return { ...state }

@@ -1,0 +1,50 @@
+.input {
+    padding: 6px 24px 6px 12px;
+    background-color: #fff;
+    border: 1px solid #CFCFCF;
+    box-shadow: inset 0 0 1px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    outline: none;
+    color: #292929;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.input::placeholder {
+    color: #CFCFCF;
+}
+
+.label {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: block;
+    visibility: hidden;
+    background-image: url("../../media/clear_icon.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.label_visible {
+    visibility: visible;
+}
+
+.btn {
+    margin-right: 10px;
+    padding: 2px 6px;
+    width: max-content;
+    height: auto;
+    max-height: 18px;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0 0 1px 1px rgba(0, 0, 0, 0.25);
+    background-color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #292929;
+}

@@ -7,6 +7,19 @@ export interface Storage {
   calendar: CalendarStorage
 }
 
+export interface Day {
+  date: string,
+  dayOfTheWeek: number,
+  event: Event
+}
+
+export interface Event {
+  date: string
+  title: string
+  members: string
+  description: string
+}
+
 export interface IAction {
   type: string
   payload?: unknown

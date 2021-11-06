@@ -1,15 +1,14 @@
-import { IProps } from '../../interfaces'
+import { Event, IProps } from '../../interfaces'
 
 export interface SidebarStorage {
-  filter: boolean
-  loading: boolean
+  eventList: Event[]
 }
 
 export interface SidebarProps extends IProps {
-  filter: boolean
-  loading: boolean
+  eventList: Event[]
 }
 
 export interface SidebarState {
   value: string
+  eventList: Event[]
 }

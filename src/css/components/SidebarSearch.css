@@ -1,0 +1,23 @@
+@import url("./SidebarSuggestion.css");
+
+.sidebar__search {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar__button_search {
+    margin-right: 20px;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-color: transparent;
+    background-image: url("../../media/search_btn.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.search__control {
+    position: relative;
+}

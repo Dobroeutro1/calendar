@@ -1,0 +1,54 @@
+@import url("./EventModal.css");
+
+.cell {
+    padding: 8px;
+    min-width: 143px;
+    max-width: 143px;
+    border: 1px solid #292929;
+    vertical-align: top;
+}
+
+.cell:hover {
+    background-color: #F4F4F4;
+}
+
+.cell_active {
+    background-color: #C2E4FE;
+    box-shadow: 0 0 10px 2px #0271C7;
+}
+
+.cell_filled {
+    background-color: #C2E4FE;
+}
+
+.cell_filled:hover {
+    background-color: #27A1FF;
+}
+
+.cell__title {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: #6B6B6B;
+}
+
+.cell__content_wrap {
+    position: relative;
+}
+
+.content__title {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: #292929;
+}
+
+.content__text {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: #6B6B6B;
+}
+
+.content__text_description {
+    margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
