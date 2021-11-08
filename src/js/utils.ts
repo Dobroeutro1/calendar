@@ -35,6 +35,12 @@ export function parseFastEvent(event: string): Day {
     title = parseEvent[1],
     members = parseEvent[2],
     description = parseEvent[3]
+
+
+  if (isNaN(date.getTime()) || !title || !members || !description) {
+    return null
+  }
+
   return {
     date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
     dayOfTheWeek,

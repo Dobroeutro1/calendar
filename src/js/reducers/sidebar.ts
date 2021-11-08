@@ -2,7 +2,6 @@ import { SidebarStorage } from '../components/sidebar'
 import { Day, Event, IAction } from '../interfaces'
 import { getAllLocalStorage } from '../utils'
 import { actionsCalendar, actionsSidebar } from '../actions'
-import { CalendarStorage } from '../components/calendar'
 
 const initialState: SidebarStorage = {
   eventList: getAllLocalStorage()

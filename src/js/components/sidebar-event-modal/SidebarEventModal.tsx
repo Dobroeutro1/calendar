@@ -21,7 +21,7 @@ export class SidebarEventModal extends React.PureComponent<SidebarEventModalProp
             onClick={this.props.onClearState}
           />
         </div>
-        <button className='btn event-modal__btn' type='submit'>Создать</button>
+        <button className='btn event-modal__btn' type='submit' disabled={!this.props.ready}>Создать</button>
       </form>
     )
   }

@@ -9,7 +9,8 @@ export class SidebarControl extends React.PureComponent<SidebarControlProps, Sid
     super(props)
     this.state = {
       showEventModal: false,
-      event: ''
+      event: '',
+      ready: false
     }
   }
 
@@ -18,7 +19,17 @@ export class SidebarControl extends React.PureComponent<SidebarControlProps, Sid
   }
 
   onChangeEvent = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ event: event.currentTarget.value })
+    this.setState({ event: event.currentTarget.value }, this.onCheckReady)
+  }
+
+  onCheckReady = (): void => {
+    const fastEvent = parseFastEvent(this.state.event)
+    if (!fastEvent) {
+      this.setState({ ready: false })
+      return
+    }
+
+    this.setState({ ready: true })
   }
 
   onClearState = (): void => {
@@ -36,6 +47,7 @@ export class SidebarControl extends React.PureComponent<SidebarControlProps, Sid
       <div className='sidebar__buttons'>
         <SidebarEventModal
           show={this.state.showEventModal}
+          ready={this.state.ready}
           event={this.state.event}
           onChangeEvent={this.onChangeEvent}
           onClearState={this.onClearState}
